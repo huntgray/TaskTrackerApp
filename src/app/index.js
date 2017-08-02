@@ -4,7 +4,7 @@ var ReactDOM = require('react-dom');
 //Create component
 var ToDoComponent = React.createClass({
   getInitialState: function(){
-    var todo_items = ['Wash the car', 'Buy groceries', 'Cut the grass'],
+    var todo_items = ['Wash the car', 'Buy groceries', 'Cut the grass', 'Cut flowers'],
     todo_items_length = todo_items.length;
     return {
       todo_items: todo_items,
@@ -12,24 +12,25 @@ var ToDoComponent = React.createClass({
     }
   },
   render: function(){
+    var todo_items = this.state.todo_items;
+    todo_items = todo_items.map(function(item, index){
+      return(
+        <li>{item}</li>
+      );
+    });
     //setState and bind this obect to the following function
     var adjustLength = setTimeout(function(){
-
       this.setState({
         num_items: (function(){
           return 100;
         }())
       });
-    }.bind(this), 5000);
+    }.bind(this), 3000);
     return(
       <div id="todo-list">
         <h1>TaskTrackerApp</h1>
         <p><strong># of Items To Do: </strong>{this.state.num_items}</p>
-        <ul>
-          <li>{this.state.todo_items[0]}</li>
-          <li>{this.state.todo_items[1]}</li>
-          <li>{this.state.todo_items[2]}</li>
-        </ul>
+        <ul>{todo_items}</ul>
       </div>
     )
   }
