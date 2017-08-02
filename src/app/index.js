@@ -4,6 +4,7 @@ require('./css/index.css');
 
 //Module requires
 var ToDoItem = require('./ToDoItem');
+var AddItem = require('./AddItem');
 
 //Create component
 var ToDoComponent = React.createClass({
@@ -25,8 +26,9 @@ var ToDoComponent = React.createClass({
     return(
       <div id="todo-list">
         <h1>TaskTrackerApp</h1>
-        <p><strong># of To Do Items to complete: </strong>{this.state.num_items}</p>
+        <p><strong># of items to complete: </strong>{this.state.num_items}</p>
         <ul>{todo_items}</ul>
+        <AddItem onAddItem={this.onAddItem}/>
       </div>
     )
   },
@@ -34,6 +36,15 @@ var ToDoComponent = React.createClass({
     var updatedToDos = this.state.todo_items.filter(function(val, index){
       return item !== val;
     });
+    var updatedNumItems = updatedToDos.length;
+    this.setState({
+      todo_items: updatedToDos,
+      num_items: updatedNumItems
+    });
+  },
+  onAddItem: function(item){
+    var updatedToDos = this.state.todo_items;
+    updatedToDos.push(item);
     var updatedNumItems = updatedToDos.length;
     this.setState({
       todo_items: updatedToDos,
