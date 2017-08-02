@@ -5,10 +5,21 @@ var ReactDOM = require('react-dom');
 var ToDoComponent = React.createClass({
   render: function(){
     return(
-      <h1>TaskTrackerApp</h1>
+      <div>
+        <h1>TaskTrackerApp</h1>
+        <ul>
+          <li>{todo_items.items[0]}</li>
+          <li>{todo_items.items[1]}</li>
+          <li>{todo_items.items[2]}</li>
+        </ul>
+      </div>
     )
   }
 });
 
+var todo_items = {
+  items: ['Wash the car', 'Buy groceries', 'Cut the grass']
+}
+
 //Places component in index.html
-ReactDOM.render(<ToDoComponent />, document.getElementById('todo-wrapper'));
+ReactDOM.render(<ToDoComponent todo_items={todo_items} />, document.getElementById('todo-wrapper'));
