@@ -15,9 +15,9 @@ var ToDoComponent = React.createClass({
     var todo_items = this.state.todo_items;
     todo_items = todo_items.map(function(item, index){
       return(
-        <ToDoItem item={item} key={index}/>
+        <ToDoItem item={item} key={index} onDelete={this.onDelete}/>
       );
-    });
+    }.bind(this));
     //setState and bind this obect to the following function
     var adjustLength = setTimeout(function(){
       this.setState({
@@ -33,6 +33,14 @@ var ToDoComponent = React.createClass({
         <ul>{todo_items}</ul>
       </div>
     )
+  },
+  onDelete: function(item){
+    var updatedToDos = this.state.todo_items.filter(function(val, index){
+      return item !== val;
+    });
+    this.setState({
+      todo_items: updatedToDos
+    });
   }
 });
 
@@ -42,9 +50,15 @@ var ToDoItem = React.createClass({
       <li>
         <div className="todo-item">
           <span className="item-name">{this.props.item}</span>
+          <span className="delete-item" onClick={this.handleDelete}>x</span>
         </div>
       </li>
     );
+  }, //render
+
+  //Custom function
+  handleDelete: function(){
+    this.props.onDelete(this.props.item);
   }
 });
 
