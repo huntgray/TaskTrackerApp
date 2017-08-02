@@ -21,7 +21,7 @@ body{
   color: #777;
   font-style: italic;
   line-height: 2;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.03em;
 }
 
 #todo-list ul{

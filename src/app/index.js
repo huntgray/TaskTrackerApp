@@ -1,7 +1,7 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 require('./css/index.css');
-import {Router, Route, browserHistory} from 'react-router';
+import {Router, Route, browserHistory, Link} from 'react-router';
 
 //Module requires
 var ToDoItem = require('./ToDoItem');
@@ -39,6 +39,7 @@ var ToDoComponent = React.createClass({
     return(
       <div id="todo-list">
         <h1>TaskTrackerApp</h1>
+        <Link to={'/about'}>About</Link>
         <p><strong># of items to complete: </strong>{this.state.num_items}</p>
         <ul>{todo_items}</ul>
         <AddItem onAddItem={this.onAddItem}/>
