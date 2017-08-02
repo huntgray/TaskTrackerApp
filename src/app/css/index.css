@@ -20,6 +20,8 @@ body{
 #todo-wrapper p{
   color: #777;
   font-style: italic;
+  line-height: 2;
+  letter-spacing: 0.1em;
 }
 
 #todo-list ul{

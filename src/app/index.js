@@ -1,10 +1,23 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 require('./css/index.css');
+import {Router, Route, browserHistory} from 'react-router';
 
 //Module requires
 var ToDoItem = require('./ToDoItem');
 var AddItem = require('./AddItem');
+var About = require('./about');
+
+var App = React.createClass({
+  render: function(){
+    return(
+      <Router history={browserHistory}>
+        <Route path={'/'} component={ToDoComponent}></Route>
+        <Route path={'/about'} component={About}></Route>
+      </Router>
+    )
+  }
+});
 
 //Create component
 var ToDoComponent = React.createClass({
@@ -56,4 +69,4 @@ var ToDoComponent = React.createClass({
 
 
 //Places component in index.html
-ReactDOM.render(<ToDoComponent />, document.getElementById('todo-wrapper'));
+ReactDOM.render(<App />, document.getElementById('todo-wrapper'));
