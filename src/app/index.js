@@ -15,7 +15,7 @@ var ToDoComponent = React.createClass({
     var todo_items = this.state.todo_items;
     todo_items = todo_items.map(function(item, index){
       return(
-        <li>{item}</li>
+        <ToDoItem item={item} key={index}/>
       );
     });
     //setState and bind this obect to the following function
@@ -33,6 +33,18 @@ var ToDoComponent = React.createClass({
         <ul>{todo_items}</ul>
       </div>
     )
+  }
+});
+
+var ToDoItem = React.createClass({
+  render: function(){
+    return(
+      <li>
+        <div className="todo-item">
+          <span className="item-name">{this.props.item}</span>
+        </div>
+      </li>
+    );
   }
 });
 
