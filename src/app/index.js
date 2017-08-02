@@ -1,68 +1,71 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
-import { Router, Route, browserHistory, Link } from 'react-router';
+require('./css/index.css');
+import {Router, Route, browserHistory, Link} from 'react-router';
 
 //Module requires
-var TodoItem = require('./todoItem');
-var AddItem = require('./addItem');
+var ToDoItem = require('./ToDoItem');
+var AddItem = require('./AddItem');
 var About = require('./about');
 
-//CSS requires
-require('./css/index.css');
-
-
-//SETUP ROUTING
 var App = React.createClass({
-    render: function(){
-        return(
-            <Router history={browserHistory}>
-                <Route path={"/"} component={TodoComponent}></Route>
-                <Route path={"/about"} component={About}></Route>
-            </Router>
-        );
-    }
+  render: function(){
+    return(
+      <Router history={browserHistory}>
+        <Route path={'/'} component={ToDoComponent}></Route>
+        <Route path={'/about'} component={About}></Route>
+      </Router>
+    )
+  }
 });
 
-//Create a component
-var TodoComponent = React.createClass({
-    getInitialState: function(){
-        return {
-            todos: ['wash up', 'eat some cheese', 'take a nap']
-        }
-    }, //getInitialState
-    render: function(){
-        var todos = this.state.todos;
-        todos = todos.map(function(item, index){
-            return(<TodoItem key={index} item={item} onDelete={this.onDelete} />);
-        }.bind(this));
-        return(
-            <div id="todo-list">
-                <Link to={"/about"}>About</Link>
-                <p>The busiest people have the most leisure...</p>
-                <ul>{todos}</ul>
-                <AddItem onAdd={this.onAdd} />
-            </div>
-        );
-    }, //render
-
-    //Custom functions
-    onDelete: function(item){
-        var updatedTodos = this.state.todos.filter(function(val, index){
-            return item !== val;
-        });
-        this.setState({
-          todos: updatedTodos
-        });
-    },
-
-    onAdd: function(item){
-        var updatedTodos = this.state.todos;
-        updatedTodos.push(item);
-        this.setState({
-            todos: updatedTodos
-        })
+//Create component
+var ToDoComponent = React.createClass({
+  getInitialState: function(){
+    var todo_items = ['Wash the car', 'Buy groceries', 'Cut the grass', 'Cut flowers'],
+    todo_items_length = todo_items.length;
+    return {
+      todo_items: todo_items,
+      num_items: todo_items_length
     }
-
+  },
+  render: function(){
+    var todo_items = this.state.todo_items;
+    todo_items = todo_items.map(function(item, index){
+      return(
+        <ToDoItem item={item} key={index} onDelete={this.onDelete}/>
+      );
+    }.bind(this));
+    return(
+      <div id="todo-list">
+        <h1>TaskTrackerApp</h1>
+        <Link to={'/about'}>About</Link>
+        <p><strong># of items to complete: </strong>{this.state.num_items}</p>
+        <ul>{todo_items}</ul>
+        <AddItem onAddItem={this.onAddItem}/>
+      </div>
+    )
+  },
+  onDelete: function(item){
+    var updatedToDos = this.state.todo_items.filter(function(val, index){
+      return item !== val;
+    });
+    var updatedNumItems = updatedToDos.length;
+    this.setState({
+      todo_items: updatedToDos,
+      num_items: updatedNumItems
+    });
+  },
+  onAddItem: function(item){
+    var updatedToDos = this.state.todo_items;
+    updatedToDos.push(item);
+    var updatedNumItems = updatedToDos.length;
+    this.setState({
+      todo_items: updatedToDos,
+      num_items: updatedNumItems
+    });
+  }
 });
 
+//Places component in index.html
 ReactDOM.render(<App />, document.getElementById('todo-wrapper'));
