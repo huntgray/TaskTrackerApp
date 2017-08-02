@@ -1,4 +1,10 @@
 # TaskTrackerApp
 A simple ReactJS To-Do List Application
 
-Be sure to run an 'npm install' to install any dependencies.
+Clone the project.
+
+Run 'npm install'.
+
+Run 'npm start'.
+
+Navigate to localhost:1234.
